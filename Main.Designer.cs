@@ -30,7 +30,6 @@ namespace MechanicMonke
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Mods", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Libraries", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("MonkeModManager", System.Windows.Forms.HorizontalAlignment.Left);
@@ -79,15 +78,11 @@ namespace MechanicMonke
             this.Catalog_ModList = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.viewRepositoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.installToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.pageControllers.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip
@@ -470,26 +465,6 @@ namespace MechanicMonke
             this.columnHeader3.Text = "Author";
             this.columnHeader3.Width = 257;
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.viewRepositoryToolStripMenuItem,
-            this.installToolStripMenuItem1});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(159, 48);
-            // 
-            // viewRepositoryToolStripMenuItem
-            // 
-            this.viewRepositoryToolStripMenuItem.Name = "viewRepositoryToolStripMenuItem";
-            this.viewRepositoryToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.viewRepositoryToolStripMenuItem.Text = "View Repository";
-            // 
-            // installToolStripMenuItem1
-            // 
-            this.installToolStripMenuItem1.Name = "installToolStripMenuItem1";
-            this.installToolStripMenuItem1.Size = new System.Drawing.Size(158, 22);
-            this.installToolStripMenuItem1.Text = "Install";
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -511,7 +486,6 @@ namespace MechanicMonke
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -558,9 +532,6 @@ namespace MechanicMonke
         private CheckBox Filter_MMM;
         private CheckBox Filter_Libraries;
         private CheckBox Filter_Mods;
-        private ContextMenuStrip contextMenuStrip1;
-        private ToolStripMenuItem viewRepositoryToolStripMenuItem;
-        private ToolStripMenuItem installToolStripMenuItem1;
     }
 }
 

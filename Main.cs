@@ -220,9 +220,7 @@ namespace MechanicMonke
                 if (jMod.repo == "EXC_PRIVATE") { continue; }
 
                 ListViewItem kMod = Catalog_ModList.Items.Add(jMod.name);
-                kMod.SubItems.Add(jMod.name);
                 kMod.SubItems.Add(jMod.author);
-                kMod.SubItems.Add(jMod.type);
 
                 if (jMod.type == "Mod")
                 {
@@ -308,16 +306,17 @@ namespace MechanicMonke
             }
 
             LoadMMMMods();
+            RenderMods(true, true, true);
 
-            foreach (Mod jMod in Mods)
+            /*foreach (Mod jMod in Mods)
             {
                 // ignore privatized mods (which are only listed on mods.json so they can be recognized successfully)
                 if (jMod.repo == "EXC_PRIVATE") { continue; }
 
                 ListViewItem kMod = Catalog_ModList.Items.Add(jMod.name);
-                kMod.SubItems.Add(jMod.name);
+                // kMod.SubItems.Add(jMod.name);
                 kMod.SubItems.Add(jMod.author);
-                kMod.SubItems.Add(jMod.type);
+                // kMod.SubItems.Add(jMod.type);
 
                 if (jMod.type == "Mod")
                 {
@@ -332,7 +331,7 @@ namespace MechanicMonke
                 {
                     kMod.Group = Catalog_ModList.Groups[3];
                 }
-            }
+            }*/
 
             Filter_Mods.Checked = true;
             Filter_Libraries.Checked = true;
