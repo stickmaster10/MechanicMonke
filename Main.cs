@@ -125,7 +125,6 @@ namespace MechanicMonke
         }
 
         List<Mod> Mods = new List<Mod>();
-        List<ReleaseInfo> MMMMods = new List<ReleaseInfo>();
 
         public void SearchDirForMods(string dir)
         {
@@ -189,7 +188,7 @@ namespace MechanicMonke
                     fileListItem.SubItems.Add("Unknown");
                     fileListItem.SubItems.Add("Unknown");
                     fileListItem.SubItems.Add("Unknown");
-                    fileListItem.Group = Installed_ModList.Groups[2];
+                    fileListItem.Group = Installed_ModList.Groups[3];
                 }
             }
         }
@@ -205,15 +204,59 @@ namespace MechanicMonke
             for (int i = 0; i < allMods.Count; i++)
             {
                 JSONNode current = allMods[i];
-                ReleaseInfo release = new ReleaseInfo(current["name"], current["author"], current["version"], current["group"], current["download_url"], current["install_location"], current["git_path"], current["dependencies"].AsArray);
+                Mod release = new Mod(current["name"], current["author"], null, current["name"], "MMM_Mod", current["git_path"], current["download_url"]);
                 //UpdateReleaseInfo(ref release);
-                MMMMods.Add(release);
+                Mods.Add(release);
             }
+        }
 
-            foreach (ReleaseInfo jMod in MMMMods)
+        public void RenderMods(bool ModsEnabled, bool LibrariesEnabled, bool MMMEnabled)
+        {
+            Catalog_ModList.Items.Clear();
+
+            foreach (Mod jMod in Mods)
             {
-                ListViewItem kMod = MMM_ModList.Items.Add(jMod.Name);
-                kMod.SubItems.Add(jMod.Author);
+                // ignore privatized mods (which are only listed on mods.json so they can be recognized successfully)
+                if (jMod.repo == "EXC_PRIVATE") { continue; }
+
+                ListViewItem kMod = Catalog_ModList.Items.Add(jMod.name);
+                kMod.SubItems.Add(jMod.name);
+                kMod.SubItems.Add(jMod.author);
+                kMod.SubItems.Add(jMod.type);
+
+                if (jMod.type == "Mod")
+                {
+                    if (ModsEnabled)
+                    {
+                        kMod.Group = Catalog_ModList.Groups[0];
+                    } else
+                    {
+                        kMod.Remove();
+                    }
+                } else if (jMod.type == "Library")
+                {
+                    if (LibrariesEnabled)
+                    {
+                        kMod.Group = Catalog_ModList.Groups[1];
+                    }
+                    else
+                    {
+                        kMod.Remove();
+                    }
+                } else if (jMod.type == "MMM_Mod")
+                {
+                    if (MMMEnabled)
+                    {
+                        kMod.Group = Catalog_ModList.Groups[2];
+                    }
+                    else
+                    {
+                        kMod.Remove();
+                    }
+                } else
+                {
+                    kMod.Group = Catalog_ModList.Groups[3];
+                }
             }
         }
             
@@ -264,6 +307,8 @@ namespace MechanicMonke
                 }
             }
 
+            LoadMMMMods();
+
             foreach (Mod jMod in Mods)
             {
                 // ignore privatized mods (which are only listed on mods.json so they can be recognized successfully)
@@ -277,16 +322,22 @@ namespace MechanicMonke
                 if (jMod.type == "Mod")
                 {
                     kMod.Group = Catalog_ModList.Groups[0];
-                } else if (jMod.type == "Library") {
+                } else if (jMod.type == "Library")
+                {
                     kMod.Group = Catalog_ModList.Groups[1];
+                } else if (jMod.type == "MMM_Mod")
+                {
+                    kMod.Group = Catalog_ModList.Groups[2];
                 } else
                 {
-                    ListViewGroup newOne = new ListViewGroup(jMod.type);
-                    kMod.Group = Catalog_ModList.Groups[Catalog_ModList.Groups.IndexOf(newOne)];
+                    kMod.Group = Catalog_ModList.Groups[3];
                 }
             }
 
-            LoadMMMMods();
+            Filter_Mods.Checked = true;
+            Filter_Libraries.Checked = true;
+            Filter_MMM.Checked = true;
+
             pageControllers.SelectedTab = tabPage1;
             pageControllers.Enabled = true;
         }
@@ -394,45 +445,6 @@ namespace MechanicMonke
             }
 
             return null;
-        }
-
-        public ReleaseInfo GetMMMModFromName(string ModName)
-        {
-            foreach (ReleaseInfo mod in MMMMods)
-            {
-                if (mod.Name == ModName)
-                {
-                    return mod;
-                }
-            }
-
-            return null;
-        }
-
-        private void Installed_DelModsBtn_Click(object sender, EventArgs e)
-        {
-            List<ListViewItem> CheckedMods = Installed_ModList.CheckedItems.Cast<ListViewItem>().ToList();
-
-            foreach (ListViewItem CheckedMod in CheckedMods)
-            {
-                Mod SelectedMod = GetModFromName(CheckedMod.SubItems[1].Text);
-
-                if (SelectedMod == null)
-                {
-                    SystemSounds.Exclamation.Play();
-                    SetStatusText("The mod " + CheckedMod.Text + " cannot be modified because it is not recognized as a mod.");
-                }
-
-                try
-                {
-                    File.Delete(SelectedMod.filepath);
-                } catch (Exception _ex)
-                {
-                    Console.WriteLine(_ex.Message);
-                    SystemSounds.Exclamation.Play();
-                    SetStatusText("The mod " + CheckedMod.Text + " could not be deleted.");
-                }
-            }
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -621,33 +633,6 @@ namespace MechanicMonke
             }
         }
 
-        private void MMM_InstallMods_Click(object sender, EventArgs e)
-        {
-            List<ListViewItem> CheckedMods = MMM_ModList.CheckedItems.Cast<ListViewItem>().ToList();
-
-            foreach (ListViewItem CheckedMod in CheckedMods)
-            {
-                ReleaseInfo SelectedMod = GetMMMModFromName(CheckedMod.Text);
-
-                if (SelectedMod == null)
-                {
-                    SystemSounds.Exclamation.Play();
-                    SetStatusText("The mod " + CheckedMod.Text + " cannot be modified because it is not recognized as a mod.");
-                }
-
-                try
-                {
-                    MMM_Install(SelectedMod);
-                }
-                catch (Exception _ex)
-                {
-                    Console.WriteLine(_ex.Message);
-                    SystemSounds.Exclamation.Play();
-                    SetStatusText("The mod " + CheckedMod.Text + " could not be installed.");
-                }
-            }
-        }
-
         private void filedllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openFileDialog1.CheckFileExists = true;
@@ -669,6 +654,21 @@ namespace MechanicMonke
                 Registry.SetValue(@"HKEY_CURRENT_USER\Software\MechanicMonke", "installLocation", installLocation);
                 SetStatusText("Set " + installLocation + " as default Gorilla Tag install directory.");
             }
+        }
+
+        private void Filter_Mods_CheckedChanged(object sender, EventArgs e)
+        {
+            RenderMods(Filter_Mods.Checked, Filter_Libraries.Checked, Filter_MMM.Checked);
+        }
+
+        private void Filter_Libraries_CheckedChanged(object sender, EventArgs e)
+        {
+            RenderMods(Filter_Mods.Checked, Filter_Libraries.Checked, Filter_MMM.Checked);
+        }
+
+        private void Filter_MMM_CheckedChanged(object sender, EventArgs e)
+        {
+            RenderMods(Filter_Mods.Checked, Filter_Libraries.Checked, Filter_MMM.Checked);
         }
     }
     public class Mod
@@ -695,10 +695,13 @@ namespace MechanicMonke
             this.installed = false;
             this.download = download;
 
-            Console.WriteLine(filenames_ij.ToString());
+            if (filenames_ij == null)
+            {
+                return;
+            }
+
             JSONArray filenames_i = filenames_ij.AsArray;
 
-            if (filenames_i == null) return;
             for (int i = 0; i < filenames_i.Count; i++)
             {
                 string filename = filenames_i[i];
