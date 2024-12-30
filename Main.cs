@@ -211,7 +211,7 @@ namespace MechanicMonke
             }
         }
 
-        public void RenderMods(bool ModsEnabled, bool LibrariesEnabled, bool MMMEnabled)
+        public void RenderMods(bool ModsEnabled, bool LibrariesEnabled, bool MMMEnabled, string searchQuery)
         {
             Catalog_ModList.Items.Clear();
 
@@ -219,6 +219,7 @@ namespace MechanicMonke
             {
                 // ignore privatized mods (which are only listed on mods.json so they can be recognized successfully)
                 if (jMod.repo == "EXC_PRIVATE") { continue; }
+                if (!jMod.name.ToLower().StartsWith(searchQuery.ToLower())) { continue; }
 
                 ListViewItem kMod = Catalog_ModList.Items.Add(jMod.name);
                 kMod.SubItems.Add(jMod.author);
@@ -623,17 +624,22 @@ namespace MechanicMonke
 
         private void Filter_Mods_CheckedChanged(object sender, EventArgs e)
         {
-            RenderMods(Filter_Mods.Checked, Filter_Libraries.Checked, Filter_MMM.Checked);
+            RenderMods(Filter_Mods.Checked, Filter_Libraries.Checked, Filter_MMM.Checked, searchBoxText.Text);
         }
 
         private void Filter_Libraries_CheckedChanged(object sender, EventArgs e)
         {
-            RenderMods(Filter_Mods.Checked, Filter_Libraries.Checked, Filter_MMM.Checked);
+            RenderMods(Filter_Mods.Checked, Filter_Libraries.Checked, Filter_MMM.Checked, searchBoxText.Text);
         }
 
         private void Filter_MMM_CheckedChanged(object sender, EventArgs e)
         {
-            RenderMods(Filter_Mods.Checked, Filter_Libraries.Checked, Filter_MMM.Checked);
+            RenderMods(Filter_Mods.Checked, Filter_Libraries.Checked, Filter_MMM.Checked, searchBoxText.Text);
+        }
+
+        private void searchBoxText_TextChanged(object sender, EventArgs e)
+        {
+            RenderMods(Filter_Mods.Checked, Filter_Libraries.Checked, Filter_MMM.Checked, searchBoxText.Text);
         }
     }
     public class Mod

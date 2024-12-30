@@ -70,6 +70,8 @@ namespace MechanicMonke
             this.columnHeaderMName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderAuthor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.searchLabel = new System.Windows.Forms.Label();
+            this.searchBoxText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Filter_MMM = new System.Windows.Forms.CheckBox();
             this.Filter_Libraries = new System.Windows.Forms.CheckBox();
@@ -140,7 +142,7 @@ namespace MechanicMonke
             this.installToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.filedllToolStripMenuItem});
             this.installToolStripMenuItem.Name = "installToolStripMenuItem";
-            this.installToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.installToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.installToolStripMenuItem.Text = "Install";
             // 
             // filedllToolStripMenuItem
@@ -155,20 +157,20 @@ namespace MechanicMonke
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(143, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
             this.quitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.quitToolStripMenuItem.Text = "Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
@@ -185,7 +187,7 @@ namespace MechanicMonke
             // startGorillaTagexeToolStripMenuItem
             // 
             this.startGorillaTagexeToolStripMenuItem.Name = "startGorillaTagexeToolStripMenuItem";
-            this.startGorillaTagexeToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.startGorillaTagexeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.startGorillaTagexeToolStripMenuItem.Text = "Start Gorilla Tag.exe";
             this.startGorillaTagexeToolStripMenuItem.Click += new System.EventHandler(this.startGorillaTagexeToolStripMenuItem_Click);
             // 
@@ -195,7 +197,7 @@ namespace MechanicMonke
             this.installDirectoryToolStripMenuItem,
             this.pluginsDirectoryToolStripMenuItem});
             this.goToolStripMenuItem.Name = "goToolStripMenuItem";
-            this.goToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.goToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.goToolStripMenuItem.Text = "Go";
             // 
             // installDirectoryToolStripMenuItem
@@ -217,7 +219,7 @@ namespace MechanicMonke
             this.preferencesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.makeThisMyDefaultGorillaTagToolStripMenuItem});
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.preferencesToolStripMenuItem.Text = "Preferences";
             // 
             // makeThisMyDefaultGorillaTagToolStripMenuItem
@@ -241,26 +243,26 @@ namespace MechanicMonke
             // moddingGuideToolStripMenuItem
             // 
             this.moddingGuideToolStripMenuItem.Name = "moddingGuideToolStripMenuItem";
-            this.moddingGuideToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.moddingGuideToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.moddingGuideToolStripMenuItem.Text = "Modding Guide";
             this.moddingGuideToolStripMenuItem.Click += new System.EventHandler(this.moddingGuideToolStripMenuItem_Click);
             // 
             // moddingDiscordToolStripMenuItem
             // 
             this.moddingDiscordToolStripMenuItem.Name = "moddingDiscordToolStripMenuItem";
-            this.moddingDiscordToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.moddingDiscordToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.moddingDiscordToolStripMenuItem.Text = "Modding Discord";
             this.moddingDiscordToolStripMenuItem.Click += new System.EventHandler(this.moddingDiscordToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(163, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -355,6 +357,8 @@ namespace MechanicMonke
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.searchLabel);
+            this.tabPage2.Controls.Add(this.searchBoxText);
             this.tabPage2.Controls.Add(this.label1);
             this.tabPage2.Controls.Add(this.Filter_MMM);
             this.tabPage2.Controls.Add(this.Filter_Libraries);
@@ -370,11 +374,32 @@ namespace MechanicMonke
             this.tabPage2.Text = "Catalog";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // searchLabel
+            // 
+            this.searchLabel.AutoSize = true;
+            this.searchLabel.Location = new System.Drawing.Point(8, 13);
+            this.searchLabel.Name = "searchLabel";
+            this.searchLabel.Size = new System.Drawing.Size(44, 13);
+            this.searchLabel.TabIndex = 10;
+            this.searchLabel.Text = "Search:";
+            // 
+            // searchBoxText
+            // 
+            this.searchBoxText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchBoxText.Location = new System.Drawing.Point(55, 10);
+            this.searchBoxText.MaxLength = 30;
+            this.searchBoxText.Name = "searchBoxText";
+            this.searchBoxText.Size = new System.Drawing.Size(718, 22);
+            this.searchBoxText.TabIndex = 9;
+            this.searchBoxText.WordWrap = false;
+            this.searchBoxText.TextChanged += new System.EventHandler(this.searchBoxText_TextChanged);
+            // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(582, 18);
+            this.label1.Location = new System.Drawing.Point(584, 44);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(38, 13);
             this.label1.TabIndex = 8;
@@ -384,7 +409,7 @@ namespace MechanicMonke
             // 
             this.Filter_MMM.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Filter_MMM.AutoSize = true;
-            this.Filter_MMM.Location = new System.Drawing.Point(585, 106);
+            this.Filter_MMM.Location = new System.Drawing.Point(587, 132);
             this.Filter_MMM.Name = "Filter_MMM";
             this.Filter_MMM.Size = new System.Drawing.Size(169, 17);
             this.Filter_MMM.TabIndex = 7;
@@ -396,7 +421,7 @@ namespace MechanicMonke
             // 
             this.Filter_Libraries.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Filter_Libraries.AutoSize = true;
-            this.Filter_Libraries.Location = new System.Drawing.Point(585, 67);
+            this.Filter_Libraries.Location = new System.Drawing.Point(587, 93);
             this.Filter_Libraries.Name = "Filter_Libraries";
             this.Filter_Libraries.Size = new System.Drawing.Size(69, 17);
             this.Filter_Libraries.TabIndex = 6;
@@ -408,7 +433,7 @@ namespace MechanicMonke
             // 
             this.Filter_Mods.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Filter_Mods.AutoSize = true;
-            this.Filter_Mods.Location = new System.Drawing.Point(585, 44);
+            this.Filter_Mods.Location = new System.Drawing.Point(587, 70);
             this.Filter_Mods.Name = "Filter_Mods";
             this.Filter_Mods.Size = new System.Drawing.Size(55, 17);
             this.Filter_Mods.TabIndex = 5;
@@ -452,9 +477,9 @@ namespace MechanicMonke
             listViewGroup7,
             listViewGroup8});
             this.Catalog_ModList.HideSelection = false;
-            this.Catalog_ModList.Location = new System.Drawing.Point(9, 6);
+            this.Catalog_ModList.Location = new System.Drawing.Point(9, 44);
             this.Catalog_ModList.Name = "Catalog_ModList";
-            this.Catalog_ModList.Size = new System.Drawing.Size(560, 352);
+            this.Catalog_ModList.Size = new System.Drawing.Size(560, 314);
             this.Catalog_ModList.TabIndex = 3;
             this.Catalog_ModList.UseCompatibleStateImageBehavior = false;
             this.Catalog_ModList.View = System.Windows.Forms.View.Details;
@@ -536,6 +561,8 @@ namespace MechanicMonke
         private CheckBox Filter_MMM;
         private CheckBox Filter_Libraries;
         private CheckBox Filter_Mods;
+        private TextBox searchBoxText;
+        private Label searchLabel;
     }
 }
 
