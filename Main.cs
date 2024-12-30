@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -306,9 +307,8 @@ namespace MechanicMonke
             }
 
             LoadMMMMods();
-            RenderMods(true, true, true);
 
-            /*foreach (Mod jMod in Mods)
+            foreach (Mod jMod in Mods)
             {
                 // ignore privatized mods (which are only listed on mods.json so they can be recognized successfully)
                 if (jMod.repo == "EXC_PRIVATE") { continue; }
@@ -331,7 +331,7 @@ namespace MechanicMonke
                 {
                     kMod.Group = Catalog_ModList.Groups[3];
                 }
-            }*/
+            }
 
             Filter_Mods.Checked = true;
             Filter_Libraries.Checked = true;
@@ -437,7 +437,7 @@ namespace MechanicMonke
         {
             foreach (Mod mod in Mods)
             {
-                if (mod.name == ModName)
+                if (mod.name == ModName || mod.keyword == ModName)
                 {
                     return mod;
                 }
@@ -471,7 +471,9 @@ namespace MechanicMonke
         {
             SetStatusText(string.Format("Downloading... {0}", release.name));
             byte[] file = DownloadFile(release.download);
+            Console.WriteLine("downloaded..");
             SetStatusText(string.Format("Installing...{0}", release.name));
+            Console.WriteLine("installing..");
             string fileName = Path.GetFileName(release.keyword + ".dll");
 
             if (Path.GetExtension(fileName).Equals(".dll"))
@@ -526,42 +528,6 @@ namespace MechanicMonke
             SetStatusText(string.Format("Installed {0}!", fileName));
         }
 
-        public void MMM_Install(ReleaseInfo release)
-        {
-            SetStatusText("Starting install sequence...");
-
-            SetStatusText(string.Format("Downloading...{0}", release.Name));
-            byte[] file = DownloadFile(release.Link);
-            SetStatusText(string.Format("Installing...{0}", release.Name));
-            string fileName = Path.GetFileName(release.Link);
-            if (Path.GetExtension(fileName).Equals(".dll"))
-            {
-                string dir;
-                if (release.InstallLocation == null)
-                {
-                    dir = Path.Combine(installLocation, @"BepInEx\plugins", Regex.Replace(release.Name, @"\s+", string.Empty));
-                    if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-                }
-                else
-                {
-                    dir = Path.Combine(installLocation, release.InstallLocation);
-                }
-                File.WriteAllBytes(Path.Combine(dir, fileName), file);
-
-                var dllFile = Path.Combine(installLocation, @"BepInEx\plugins", fileName);
-                if (File.Exists(dllFile))
-                {
-                    File.Delete(dllFile);
-                }
-            }
-            else
-            {
-                UnzipFile(file, (release.InstallLocation != null) ? Path.Combine(installLocation, release.InstallLocation) : installLocation);
-            }
-            SetStatusText(string.Format("Installed {0}!", release.Name));
-            SetStatusText("Install complete!");
-        }
-
         private void Installed_UpdModBtn_Click(object sender, EventArgs e)
         {
             List<ListViewItem> CheckedMods = Installed_ModList.CheckedItems.Cast<ListViewItem>().ToList();
@@ -611,7 +577,7 @@ namespace MechanicMonke
 
             foreach (ListViewItem CheckedMod in CheckedMods)
             {
-                Mod SelectedMod = GetModFromName(CheckedMod.SubItems[1].Text);
+                Mod SelectedMod = GetModFromName(CheckedMod.Text);
 
                 if (SelectedMod == null)
                 {
