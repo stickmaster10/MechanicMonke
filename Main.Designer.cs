@@ -44,7 +44,6 @@ namespace MechanicMonke
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.installToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filedllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.uRLdllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,6 +76,8 @@ namespace MechanicMonke
             this.MMM_ModList = new System.Windows.Forms.ListView();
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.makeThisMyDefaultGorillaTagToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.pageControllers.SuspendLayout();
@@ -138,44 +139,37 @@ namespace MechanicMonke
             // installToolStripMenuItem
             // 
             this.installToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.filedllToolStripMenuItem,
-            this.uRLdllToolStripMenuItem});
+            this.filedllToolStripMenuItem});
             this.installToolStripMenuItem.Name = "installToolStripMenuItem";
-            this.installToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.installToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.installToolStripMenuItem.Text = "Install";
             // 
             // filedllToolStripMenuItem
             // 
             this.filedllToolStripMenuItem.Name = "filedllToolStripMenuItem";
             this.filedllToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.filedllToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.filedllToolStripMenuItem.Text = "File (*.dll)";
-            // 
-            // uRLdllToolStripMenuItem
-            // 
-            this.uRLdllToolStripMenuItem.Name = "uRLdllToolStripMenuItem";
-            this.uRLdllToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
-            this.uRLdllToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.uRLdllToolStripMenuItem.Text = "URL (*.dll)";
+            this.filedllToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.filedllToolStripMenuItem.Text = "File (*.dll, *.zip)";
+            this.filedllToolStripMenuItem.Click += new System.EventHandler(this.filedllToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(143, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
             this.quitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.quitToolStripMenuItem.Text = "Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
@@ -183,7 +177,8 @@ namespace MechanicMonke
             // 
             this.runToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startGorillaTagexeToolStripMenuItem,
-            this.goToolStripMenuItem});
+            this.goToolStripMenuItem,
+            this.preferencesToolStripMenuItem});
             this.runToolStripMenuItem.Name = "runToolStripMenuItem";
             this.runToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
             this.runToolStripMenuItem.Text = "Gorilla Tag";
@@ -191,7 +186,7 @@ namespace MechanicMonke
             // startGorillaTagexeToolStripMenuItem
             // 
             this.startGorillaTagexeToolStripMenuItem.Name = "startGorillaTagexeToolStripMenuItem";
-            this.startGorillaTagexeToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.startGorillaTagexeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.startGorillaTagexeToolStripMenuItem.Text = "Start Gorilla Tag.exe";
             this.startGorillaTagexeToolStripMenuItem.Click += new System.EventHandler(this.startGorillaTagexeToolStripMenuItem_Click);
             // 
@@ -201,20 +196,20 @@ namespace MechanicMonke
             this.installDirectoryToolStripMenuItem,
             this.pluginsDirectoryToolStripMenuItem});
             this.goToolStripMenuItem.Name = "goToolStripMenuItem";
-            this.goToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.goToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.goToolStripMenuItem.Text = "Go";
             // 
             // installDirectoryToolStripMenuItem
             // 
             this.installDirectoryToolStripMenuItem.Name = "installDirectoryToolStripMenuItem";
-            this.installDirectoryToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.installDirectoryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.installDirectoryToolStripMenuItem.Text = "Install Directory";
             this.installDirectoryToolStripMenuItem.Click += new System.EventHandler(this.installDirectoryToolStripMenuItem_Click_1);
             // 
             // pluginsDirectoryToolStripMenuItem
             // 
             this.pluginsDirectoryToolStripMenuItem.Name = "pluginsDirectoryToolStripMenuItem";
-            this.pluginsDirectoryToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.pluginsDirectoryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.pluginsDirectoryToolStripMenuItem.Text = "Plugins Directory";
             this.pluginsDirectoryToolStripMenuItem.Click += new System.EventHandler(this.pluginsDirectoryToolStripMenuItem_Click_1);
             // 
@@ -232,26 +227,26 @@ namespace MechanicMonke
             // moddingGuideToolStripMenuItem
             // 
             this.moddingGuideToolStripMenuItem.Name = "moddingGuideToolStripMenuItem";
-            this.moddingGuideToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.moddingGuideToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.moddingGuideToolStripMenuItem.Text = "Modding Guide";
             this.moddingGuideToolStripMenuItem.Click += new System.EventHandler(this.moddingGuideToolStripMenuItem_Click);
             // 
             // moddingDiscordToolStripMenuItem
             // 
             this.moddingDiscordToolStripMenuItem.Name = "moddingDiscordToolStripMenuItem";
-            this.moddingDiscordToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.moddingDiscordToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.moddingDiscordToolStripMenuItem.Text = "Modding Discord";
             this.moddingDiscordToolStripMenuItem.Click += new System.EventHandler(this.moddingDiscordToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(163, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -470,6 +465,21 @@ namespace MechanicMonke
             this.columnHeader7.Text = "Author";
             this.columnHeader7.Width = 257;
             // 
+            // preferencesToolStripMenuItem
+            // 
+            this.preferencesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.makeThisMyDefaultGorillaTagToolStripMenuItem});
+            this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.preferencesToolStripMenuItem.Text = "Preferences";
+            // 
+            // makeThisMyDefaultGorillaTagToolStripMenuItem
+            // 
+            this.makeThisMyDefaultGorillaTagToolStripMenuItem.Name = "makeThisMyDefaultGorillaTagToolStripMenuItem";
+            this.makeThisMyDefaultGorillaTagToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
+            this.makeThisMyDefaultGorillaTagToolStripMenuItem.Text = "Make this my default Gorilla Tag";
+            this.makeThisMyDefaultGorillaTagToolStripMenuItem.Click += new System.EventHandler(this.makeThisMyDefaultGorillaTagToolStripMenuItem_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -504,7 +514,6 @@ namespace MechanicMonke
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem installToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem filedllToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem uRLdllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
@@ -538,6 +547,8 @@ namespace MechanicMonke
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripMenuItem aboutToolStripMenuItem;
         private Button MMM_InstallMods;
+        private ToolStripMenuItem preferencesToolStripMenuItem;
+        private ToolStripMenuItem makeThisMyDefaultGorillaTagToolStripMenuItem;
     }
 }
 

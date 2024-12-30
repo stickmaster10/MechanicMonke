@@ -9,6 +9,7 @@ using System.Linq;
 using System.Media;
 using System.Net;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Lifetime;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -457,7 +458,7 @@ namespace MechanicMonke
 
         public void Install(Mod release)
         {
-            SetStatusText(string.Format("Downloading...{0}", release.name));
+            SetStatusText(string.Format("Downloading... {0}", release.name));
             byte[] file = DownloadFile(release.download);
             SetStatusText(string.Format("Installing...{0}", release.name));
             string fileName = Path.GetFileName(release.keyword + ".dll");
@@ -483,6 +484,35 @@ namespace MechanicMonke
             }
 
             SetStatusText(string.Format("Installed {0}!", release.name));
+        }
+
+        public void InstallLocal(string filename)
+        {
+            byte[] file = File.ReadAllBytes(filename);
+            string fileName = Path.GetFileName(filename + ".dll");
+            SetStatusText(string.Format("Installing...{0}", fileName));
+
+            if (Path.GetExtension(fileName).Equals(".dll"))
+            {
+                string dir;
+
+                dir = Path.Combine(installLocation, @"BepInEx\plugins", Regex.Replace(fileName, @"\s+", string.Empty));
+                if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+
+                File.WriteAllBytes(Path.Combine(dir, fileName), file);
+
+                var dllFile = Path.Combine(installLocation, @"BepInEx\plugins", fileName);
+                if (File.Exists(dllFile))
+                {
+                    File.Delete(dllFile);
+                }
+            }
+            else
+            {
+                UnzipFile(file, installLocation);
+            }
+
+            SetStatusText(string.Format("Installed {0}!", fileName));
         }
 
         public void MMM_Install(ReleaseInfo release)
@@ -615,6 +645,29 @@ namespace MechanicMonke
                     SystemSounds.Exclamation.Play();
                     SetStatusText("The mod " + CheckedMod.Text + " could not be installed.");
                 }
+            }
+        }
+
+        private void filedllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.CheckFileExists = true;
+            openFileDialog1.Title = "Select .dll or .zip file";
+            openFileDialog1.Filter = "DLL Files|*.dll|ZIP Files|*.zip";
+
+            openFileDialog1.ShowDialog();
+            InstallLocal(openFileDialog1.FileName);
+        }
+
+        private void makeThisMyDefaultGorillaTagToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (installLocation == null)
+            {
+                SetStatusText("Could not find Gorilla Tag install directory. Please select it manually.");
+                return;
+            } else
+            {
+                Registry.SetValue(@"HKEY_CURRENT_USER\Software\MechanicMonke", "installLocation", installLocation);
+                SetStatusText("Set " + installLocation + " as default Gorilla Tag install directory.");
             }
         }
     }
