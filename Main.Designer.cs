@@ -372,6 +372,7 @@ namespace MechanicMonke
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(582, 18);
             this.label1.Name = "label1";
@@ -381,6 +382,7 @@ namespace MechanicMonke
             // 
             // Filter_MMM
             // 
+            this.Filter_MMM.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Filter_MMM.AutoSize = true;
             this.Filter_MMM.Location = new System.Drawing.Point(585, 106);
             this.Filter_MMM.Name = "Filter_MMM";
@@ -392,6 +394,7 @@ namespace MechanicMonke
             // 
             // Filter_Libraries
             // 
+            this.Filter_Libraries.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Filter_Libraries.AutoSize = true;
             this.Filter_Libraries.Location = new System.Drawing.Point(585, 67);
             this.Filter_Libraries.Name = "Filter_Libraries";
@@ -403,6 +406,7 @@ namespace MechanicMonke
             // 
             // Filter_Mods
             // 
+            this.Filter_Mods.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Filter_Mods.AutoSize = true;
             this.Filter_Mods.Location = new System.Drawing.Point(585, 44);
             this.Filter_Mods.Name = "Filter_Mods";

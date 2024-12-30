@@ -108,7 +108,7 @@ namespace MechanicMonke
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/binguszingus/mechanicmonkebeta");
+            Process.Start("https://github.com/binguszingus/MechanicMonke");
         }
 
         private void button2_Click(object sender, EventArgs e)
