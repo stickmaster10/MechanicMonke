@@ -32,14 +32,14 @@ namespace MechanicMonke
         {
             System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Mods", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Libraries", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Mods", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Libraries", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup5 = new System.Windows.Forms.ListViewGroup("Uncategorized", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Unknown", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Mods", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup5 = new System.Windows.Forms.ListViewGroup("Libraries", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup6 = new System.Windows.Forms.ListViewGroup("Uncategorized", System.Windows.Forms.HorizontalAlignment.Left);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.installDir = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusText = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.installToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,6 +56,8 @@ namespace MechanicMonke
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moddingGuideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moddingDiscordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.pageControllers = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -68,10 +70,10 @@ namespace MechanicMonke
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.Catalog_ModList = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.MMM_InstallMods = new System.Windows.Forms.Button();
             this.MMM_ModList = new System.Windows.Forms.ListView();
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -88,14 +90,13 @@ namespace MechanicMonke
             this.statusStrip.GripMargin = new System.Windows.Forms.Padding(32, 2, 32, 2);
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.installDir,
-            this.statusText,
-            this.toolStripProgressBar1});
+            this.statusText});
             this.statusStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.statusStrip.Location = new System.Drawing.Point(0, 444);
+            this.statusStrip.Location = new System.Drawing.Point(0, 445);
             this.statusStrip.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.statusStrip.Size = new System.Drawing.Size(789, 21);
+            this.statusStrip.Size = new System.Drawing.Size(789, 20);
             this.statusStrip.TabIndex = 0;
             this.statusStrip.Text = "statusStrip";
             // 
@@ -110,11 +111,6 @@ namespace MechanicMonke
             this.statusText.Name = "statusText";
             this.statusText.Size = new System.Drawing.Size(97, 15);
             this.statusText.Text = "Status: Loading...";
-            // 
-            // toolStripProgressBar1
-            // 
-            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 15);
             // 
             // menuStrip1
             // 
@@ -226,7 +222,9 @@ namespace MechanicMonke
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.moddingGuideToolStripMenuItem,
-            this.moddingDiscordToolStripMenuItem});
+            this.moddingDiscordToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
@@ -236,12 +234,26 @@ namespace MechanicMonke
             this.moddingGuideToolStripMenuItem.Name = "moddingGuideToolStripMenuItem";
             this.moddingGuideToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.moddingGuideToolStripMenuItem.Text = "Modding Guide";
+            this.moddingGuideToolStripMenuItem.Click += new System.EventHandler(this.moddingGuideToolStripMenuItem_Click);
             // 
             // moddingDiscordToolStripMenuItem
             // 
             this.moddingDiscordToolStripMenuItem.Name = "moddingDiscordToolStripMenuItem";
             this.moddingDiscordToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.moddingDiscordToolStripMenuItem.Text = "Modding Discord";
+            this.moddingDiscordToolStripMenuItem.Click += new System.EventHandler(this.moddingDiscordToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(163, 6);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 
@@ -277,21 +289,18 @@ namespace MechanicMonke
             // 
             // Installed_UpdModBtn
             // 
-            this.Installed_UpdModBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Installed_UpdModBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Installed_UpdModBtn.Location = new System.Drawing.Point(102, 364);
             this.Installed_UpdModBtn.Name = "Installed_UpdModBtn";
             this.Installed_UpdModBtn.Size = new System.Drawing.Size(88, 23);
             this.Installed_UpdModBtn.TabIndex = 3;
             this.Installed_UpdModBtn.Text = "Update";
             this.Installed_UpdModBtn.UseVisualStyleBackColor = true;
+            this.Installed_UpdModBtn.Click += new System.EventHandler(this.Installed_UpdModBtn_Click);
             // 
             // Installed_DelModsBtn
             // 
-            this.Installed_DelModsBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Installed_DelModsBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Installed_DelModsBtn.Location = new System.Drawing.Point(8, 364);
             this.Installed_DelModsBtn.Name = "Installed_DelModsBtn";
             this.Installed_DelModsBtn.Size = new System.Drawing.Size(88, 23);
@@ -316,9 +325,12 @@ namespace MechanicMonke
             listViewGroup1.Name = "mods";
             listViewGroup2.Header = "Libraries";
             listViewGroup2.Name = "libraries";
+            listViewGroup3.Header = "Unknown";
+            listViewGroup3.Name = "unknown";
             this.Installed_ModList.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
             listViewGroup1,
-            listViewGroup2});
+            listViewGroup2,
+            listViewGroup3});
             this.Installed_ModList.HideSelection = false;
             this.Installed_ModList.Location = new System.Drawing.Point(8, 6);
             this.Installed_ModList.Name = "Installed_ModList";
@@ -357,12 +369,14 @@ namespace MechanicMonke
             // 
             // button1
             // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button1.Location = new System.Drawing.Point(9, 364);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 4;
             this.button1.Text = "Install";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Catalog_ModList
             // 
@@ -371,21 +385,20 @@ namespace MechanicMonke
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Catalog_ModList.CheckBoxes = true;
             this.Catalog_ModList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3});
             this.Catalog_ModList.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Catalog_ModList.FullRowSelect = true;
-            listViewGroup3.Header = "Mods";
-            listViewGroup3.Name = "mods";
-            listViewGroup4.Header = "Libraries";
-            listViewGroup4.Name = "libraries";
-            listViewGroup5.Header = "Uncategorized";
-            listViewGroup5.Name = "uncategorized";
+            listViewGroup4.Header = "Mods";
+            listViewGroup4.Name = "mods";
+            listViewGroup5.Header = "Libraries";
+            listViewGroup5.Name = "libraries";
+            listViewGroup6.Header = "Uncategorized";
+            listViewGroup6.Name = "uncategorized";
             this.Catalog_ModList.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup3,
             listViewGroup4,
-            listViewGroup5});
+            listViewGroup5,
+            listViewGroup6});
             this.Catalog_ModList.HideSelection = false;
             this.Catalog_ModList.Location = new System.Drawing.Point(8, 6);
             this.Catalog_ModList.Name = "Catalog_ModList";
@@ -394,23 +407,19 @@ namespace MechanicMonke
             this.Catalog_ModList.UseCompatibleStateImageBehavior = false;
             this.Catalog_ModList.View = System.Windows.Forms.View.Details;
             // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "File";
-            this.columnHeader1.Width = 193;
-            // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Mod";
-            this.columnHeader2.Width = 160;
+            this.columnHeader2.Width = 280;
             // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "Author";
-            this.columnHeader3.Width = 204;
+            this.columnHeader3.Width = 257;
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.MMM_InstallMods);
             this.tabPage3.Controls.Add(this.MMM_ModList);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
@@ -419,6 +428,17 @@ namespace MechanicMonke
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "MonkeModManager Catalog";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // MMM_InstallMods
+            // 
+            this.MMM_InstallMods.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.MMM_InstallMods.Location = new System.Drawing.Point(8, 364);
+            this.MMM_InstallMods.Name = "MMM_InstallMods";
+            this.MMM_InstallMods.Size = new System.Drawing.Size(87, 23);
+            this.MMM_InstallMods.TabIndex = 6;
+            this.MMM_InstallMods.Text = "Install";
+            this.MMM_InstallMods.UseVisualStyleBackColor = true;
+            this.MMM_InstallMods.Click += new System.EventHandler(this.MMM_InstallMods_Click);
             // 
             // MMM_ModList
             // 
@@ -480,7 +500,6 @@ namespace MechanicMonke
 
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel statusText;
-        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem installToolStripMenuItem;
@@ -511,12 +530,14 @@ namespace MechanicMonke
         private ColumnHeader columnHeaderMName;
         private Button button1;
         private ListView Catalog_ModList;
-        private ColumnHeader columnHeader1;
         private ColumnHeader columnHeader2;
         private ColumnHeader columnHeader3;
         private ListView MMM_ModList;
         private ColumnHeader columnHeader6;
         private ColumnHeader columnHeader7;
+        private ToolStripSeparator toolStripSeparator2;
+        private ToolStripMenuItem aboutToolStripMenuItem;
+        private Button MMM_InstallMods;
     }
 }
 

@@ -9,7 +9,9 @@ using System.Linq;
 using System.Media;
 using System.Net;
 using System.Reflection;
+using System.Runtime.Remoting.Lifetime;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MechanicMonke.SimpleJSON;
@@ -143,6 +145,7 @@ namespace MechanicMonke
                         if (fname == filename)
                         {
                             AssociatedMod = modInfo;
+                            fileListItem.Checked = true;
                         }
                     }
                 }
@@ -157,8 +160,9 @@ namespace MechanicMonke
                             if (fname.Contains(filename))
                             {
                                 AssociatedMod = modInfo;
-                                Mods[i].filepath = file;
-                                Mods[i].installed = true;
+                                fileListItem.Checked = true;
+
+                                return;
                             }
                         }
                     }
@@ -169,12 +173,22 @@ namespace MechanicMonke
                     fileListItem.SubItems.Add(AssociatedMod.name);
                     fileListItem.SubItems.Add(AssociatedMod.author);
                     fileListItem.SubItems.Add(AssociatedMod.type);
+
+                    if (AssociatedMod.type == "Mod")
+                    {
+                        fileListItem.Group = Installed_ModList.Groups[0];
+                    }
+                    else if (AssociatedMod.type == "Library")
+                    {
+                        fileListItem.Group = Installed_ModList.Groups[1];
+                    }
                 }
                 else
                 {
                     fileListItem.SubItems.Add("Unknown");
                     fileListItem.SubItems.Add("Unknown");
                     fileListItem.SubItems.Add("Unknown");
+                    fileListItem.Group = Installed_ModList.Groups[2];
                 }
             }
         }
@@ -199,11 +213,6 @@ namespace MechanicMonke
             {
                 ListViewItem kMod = MMM_ModList.Items.Add(jMod.Name);
                 kMod.SubItems.Add(jMod.Author);
-
-                if (jMod.Install)
-                {
-                    kMod.Checked = true;
-                }
             }
         }
             
@@ -236,7 +245,7 @@ namespace MechanicMonke
                 for (int i = 0; i < ModsList.Count; i++)
                 {
                     JSONNode current = ModsList[i];
-                    Mod release = new Mod(current["name"], current["author"], current["filenames"], current["keyword"], current["type"], current["repo"]);
+                    Mod release = new Mod(current["name"], current["author"], current["filenames"], current["keyword"], current["type"], current["repo"], current["download"]);
                     SetStatusText("Updating definition for mod : " + release.name);
 
                     Mods.Add(release);
@@ -264,14 +273,15 @@ namespace MechanicMonke
                 kMod.SubItems.Add(jMod.author);
                 kMod.SubItems.Add(jMod.type);
 
-                if (jMod.type == "mod")
+                if (jMod.type == "Mod")
                 {
                     kMod.Group = Catalog_ModList.Groups[0];
-                } else if (jMod.type == "library") {
+                } else if (jMod.type == "Library") {
                     kMod.Group = Catalog_ModList.Groups[1];
                 } else
                 {
-                    kMod.Group = Catalog_ModList.Groups[2];
+                    ListViewGroup newOne = new ListViewGroup(jMod.type);
+                    kMod.Group = Catalog_ModList.Groups[Catalog_ModList.Groups.IndexOf(newOne)];
                 }
             }
 
@@ -385,6 +395,19 @@ namespace MechanicMonke
             return null;
         }
 
+        public ReleaseInfo GetMMMModFromName(string ModName)
+        {
+            foreach (ReleaseInfo mod in MMMMods)
+            {
+                if (mod.Name == ModName)
+                {
+                    return mod;
+                }
+            }
+
+            return null;
+        }
+
         private void Installed_DelModsBtn_Click(object sender, EventArgs e)
         {
             List<ListViewItem> CheckedMods = Installed_ModList.CheckedItems.Cast<ListViewItem>().ToList();
@@ -413,7 +436,186 @@ namespace MechanicMonke
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // misclick
+        }
+        private void UnzipFile(byte[] data, string directory)
+        {
+            using (MemoryStream ms = new MemoryStream(data))
+            {
+                using (var unzip = new Unzip(ms))
+                {
+                    unzip.ExtractToDirectory(directory);
+                }
+            }
+        }
+        private byte[] DownloadFile(string url)
+        {
+            WebClient client = new WebClient();
+            client.Proxy = null;
+            return client.DownloadData(url);
+        }
 
+        public void Install(Mod release)
+        {
+            SetStatusText(string.Format("Downloading...{0}", release.name));
+            byte[] file = DownloadFile(release.download);
+            SetStatusText(string.Format("Installing...{0}", release.name));
+            string fileName = Path.GetFileName(release.keyword + ".dll");
+
+            if (Path.GetExtension(fileName).Equals(".dll"))
+            {
+                string dir;
+
+                dir = Path.Combine(installLocation, @"BepInEx\plugins", Regex.Replace(release.name, @"\s+", string.Empty));
+                if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+
+                File.WriteAllBytes(Path.Combine(dir, fileName), file);
+
+                var dllFile = Path.Combine(installLocation, @"BepInEx\plugins", fileName);
+                if (File.Exists(dllFile))
+                {
+                    File.Delete(dllFile);
+                }
+            }
+            else
+            {
+                UnzipFile(file, installLocation);
+            }
+
+            SetStatusText(string.Format("Installed {0}!", release.name));
+        }
+
+        public void MMM_Install(ReleaseInfo release)
+        {
+            SetStatusText("Starting install sequence...");
+
+            SetStatusText(string.Format("Downloading...{0}", release.Name));
+            byte[] file = DownloadFile(release.Link);
+            SetStatusText(string.Format("Installing...{0}", release.Name));
+            string fileName = Path.GetFileName(release.Link);
+            if (Path.GetExtension(fileName).Equals(".dll"))
+            {
+                string dir;
+                if (release.InstallLocation == null)
+                {
+                    dir = Path.Combine(installLocation, @"BepInEx\plugins", Regex.Replace(release.Name, @"\s+", string.Empty));
+                    if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+                }
+                else
+                {
+                    dir = Path.Combine(installLocation, release.InstallLocation);
+                }
+                File.WriteAllBytes(Path.Combine(dir, fileName), file);
+
+                var dllFile = Path.Combine(installLocation, @"BepInEx\plugins", fileName);
+                if (File.Exists(dllFile))
+                {
+                    File.Delete(dllFile);
+                }
+            }
+            else
+            {
+                UnzipFile(file, (release.InstallLocation != null) ? Path.Combine(installLocation, release.InstallLocation) : installLocation);
+            }
+            SetStatusText(string.Format("Installed {0}!", release.Name));
+            SetStatusText("Install complete!");
+        }
+
+        private void Installed_UpdModBtn_Click(object sender, EventArgs e)
+        {
+            List<ListViewItem> CheckedMods = Installed_ModList.CheckedItems.Cast<ListViewItem>().ToList();
+
+            foreach (ListViewItem CheckedMod in CheckedMods)
+            {
+                Mod SelectedMod = GetModFromName(CheckedMod.SubItems[1].Text);
+
+                if (SelectedMod == null)
+                {
+                    SystemSounds.Exclamation.Play();
+                    SetStatusText("The mod " + CheckedMod.Text + " cannot be modified because it is not recognized as a mod.");
+                }
+
+                try
+                {
+                    Install(SelectedMod);
+                }
+                catch (Exception _ex)
+                {
+                    Console.WriteLine(_ex.Message);
+                    SystemSounds.Exclamation.Play();
+                    SetStatusText("The mod " + CheckedMod.Text + " could not be installed.");
+                }
+            }
+        }
+
+        private void moddingDiscordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://gorillatagmodding.burrito.software/");
+        }
+
+        private void moddingGuideToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://discord.gg/monkemod");
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            About Sophisticated_Cube = new About();
+            Sophisticated_Cube.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            List<ListViewItem> CheckedMods = Catalog_ModList.CheckedItems.Cast<ListViewItem>().ToList();
+
+            foreach (ListViewItem CheckedMod in CheckedMods)
+            {
+                Mod SelectedMod = GetModFromName(CheckedMod.SubItems[1].Text);
+
+                if (SelectedMod == null)
+                {
+                    SystemSounds.Exclamation.Play();
+                    SetStatusText("The mod " + CheckedMod.Text + " cannot be modified because it is not recognized as a mod.");
+                }
+
+                try
+                {
+                    Install(SelectedMod);
+                }
+                catch (Exception _ex)
+                {
+                    Console.WriteLine(_ex.Message);
+                    SystemSounds.Exclamation.Play();
+                    SetStatusText("The mod " + CheckedMod.Text + " could not be installed.");
+                }
+            }
+        }
+
+        private void MMM_InstallMods_Click(object sender, EventArgs e)
+        {
+            List<ListViewItem> CheckedMods = MMM_ModList.CheckedItems.Cast<ListViewItem>().ToList();
+
+            foreach (ListViewItem CheckedMod in CheckedMods)
+            {
+                ReleaseInfo SelectedMod = GetMMMModFromName(CheckedMod.Text);
+
+                if (SelectedMod == null)
+                {
+                    SystemSounds.Exclamation.Play();
+                    SetStatusText("The mod " + CheckedMod.Text + " cannot be modified because it is not recognized as a mod.");
+                }
+
+                try
+                {
+                    MMM_Install(SelectedMod);
+                }
+                catch (Exception _ex)
+                {
+                    Console.WriteLine(_ex.Message);
+                    SystemSounds.Exclamation.Play();
+                    SetStatusText("The mod " + CheckedMod.Text + " could not be installed.");
+                }
+            }
         }
     }
     public class Mod
@@ -426,8 +628,9 @@ namespace MechanicMonke
         public string repo;
         public string filepath;
         public bool installed;
+        public string download;
 
-        public Mod(string name, string author, JSONNode filenames_ij, string keyword, string type, string repo)
+        public Mod(string name, string author, JSONNode filenames_ij, string keyword, string type, string repo, string download)
         {
             this.name = name;
             this.author = author;
@@ -437,6 +640,7 @@ namespace MechanicMonke
             this.repo = repo;
             this.filepath = "";
             this.installed = false;
+            this.download = download;
 
             Console.WriteLine(filenames_ij.ToString());
             JSONArray filenames_i = filenames_ij.AsArray;
