@@ -262,10 +262,31 @@ namespace MechanicMonke
                 }
             }
         }
-            
+
+        List<String> ModLists = new List<String>();
+
         public void LoadGorillaTagInstall(string path)
         {
-            pageControllers.Enabled = false;
+            try
+            {
+                List<string> ModListsSaved = new List<string>(File.ReadAllLines(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"\lists.txt"));
+                
+                if (ModListsSaved != null)
+                {
+                    ModLists = ModListsSaved;
+                }
+
+                pageControllers.Enabled = false;
+            } catch (Exception ex)
+            {
+                // there is no mod list, ignore
+                Console.WriteLine(ex.Message);
+            }
+
+            if (!ModLists.Contains("https://raw.githubusercontent.com/binguszingus/MMDictionary/master/mods.json"))
+            {
+                ModLists.Add("https://raw.githubusercontent.com/binguszingus/MMDictionary/master/mods.json");
+            }
 
             Mods = new List<Mod>(); // clear mod cache
 
@@ -275,27 +296,30 @@ namespace MechanicMonke
                 SetStatusText("Gorilla Tag directory found!");
                 installDir.Text = "Platform: " + ReturnGameInstallationPlatform(installLocation);
 
-                // get mod dictionary
-                string ModContent = DownloadSite("https://raw.githubusercontent.com/binguszingus/MMDictionary/master/mods.json");
-
-                JSONNode ModsJSON = null;
-                if (ModContent != null && ModContent != "")
+                foreach (string modList in ModLists)
                 {
-                    ModsJSON = JSON.Parse(DownloadSite("https://raw.githubusercontent.com/binguszingus/MMDictionary/master/mods.json"));
-                } else
-                {
-                    Application.Exit();
-                }
+                    // get mod dictionary
+                    JSONNode ModsJSON = null;
 
-                var ModsList = ModsJSON.AsArray;
+                    try
+                    {
+                        ModsJSON = JSON.Parse(DownloadSite(modList));
+                    } catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        MessageBox.Show("There was an error parsing the JSON for a list. List: " + modList + "Exception: " + ex.Message, "JSON Parsing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
 
-                for (int i = 0; i < ModsList.Count; i++)
-                {
-                    JSONNode current = ModsList[i];
-                    Mod release = new Mod(current["name"], current["author"], current["filenames"], current["keyword"], current["type"], current["repo"], current["download"]);
-                    SetStatusText("Updating definition for mod : " + release.name);
+                    var ModsList = ModsJSON.AsArray;
 
-                    Mods.Add(release);
+                    for (int i = 0; i < ModsList.Count; i++)
+                    {
+                        JSONNode current = ModsList[i];
+                        Mod release = new Mod(current["name"], current["author"], current["filenames"], current["keyword"], current["type"], current["repo"], current["download"]);
+                        SetStatusText("Updating definition for mod : " + release.name);
+
+                        Mods.Add(release);
+                    }
                 }
 
                 // load mods
@@ -643,6 +667,78 @@ namespace MechanicMonke
         private void searchBoxText_TextChanged(object sender, EventArgs e)
         {
             RenderMods(Filter_Mods.Checked, Filter_Libraries.Checked, Filter_MMM.Checked, searchBoxText.Text);
+        }
+
+        private void addFromURLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult Warning = MessageBox.Show("Always be careful when using online lists as there is a risk of downloading malicious content. Only add trusted lists to your MechanicMonke.\n\nDo you want to continue?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (Warning == DialogResult.No) return;
+
+            string uri = StringPrompt.Prompt("Enter URL of .json list you want to add to MechanicMonke.");
+
+            if (uri == "" || uri == null) return;
+
+            bool jsonErrors = false;
+
+            // get mod dictionary
+            JSONNode ModsJSON = null;
+
+            try
+            {
+                ModsJSON = JSON.Parse(DownloadSite(uri));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                MessageBox.Show("There was an error parsing the JSON for a list. List: ", "JSON Parsing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                jsonErrors = true;
+            }
+
+            var ModsList = ModsJSON.AsArray;
+
+            try
+            {
+                for (int i = 0; i < ModsList.Count; i++)
+                {
+                    JSONNode current = ModsList[i];
+                    Mod release = new Mod(current["name"], current["author"], current["filenames"], current["keyword"], current["type"], current["repo"], current["download"]);
+                    SetStatusText("Updating definition for mod : " + release.name);
+
+                    Mods.Add(release);
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                MessageBox.Show("The list you selected contains syntax errors.\n\nList creators: Please see the example JSON.\nList users: Please contact the admin for this list.", "JSON Parsing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                jsonErrors = true;
+            }
+
+            if (!jsonErrors)
+            {
+                ModLists.Add(uri);
+                File.WriteAllText(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"\lists.txt", string.Join("\n", ModLists));
+            }
+        }
+
+        private void catalogsListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string uri = StringPrompt.Prompt("Enter URL of .json list you want to remove from MechanicMonke. See lists.txt for all lists.");
+
+            if (uri == "" || uri == null) return;
+            
+            if (ModLists.Contains(uri))
+            {
+                ModLists.Remove(uri);
+                File.WriteAllText(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"\lists.txt", string.Join("\n", ModLists));
+            } else
+            {
+                MessageBox.Show("The list you selected is not in your MechanicMonke list.", "List Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void viewListstxtToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"\lists.txt");
         }
     }
     public class Mod
