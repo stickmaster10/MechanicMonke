@@ -217,9 +217,12 @@ namespace MechanicMonke
 
             foreach (Mod jMod in Mods)
             {
-                // ignore privatized mods (which are only listed on mods.json so they can be recognized successfully)
-                if (jMod.repo == "EXC_PRIVATE") { continue; }
-                if (!jMod.name.ToLower().StartsWith(searchQuery.ToLower())) { continue; }
+                // filtered stuff since these dont work
+                if (jMod.repo == "EXC_PRIVATE") { continue; };
+                if (jMod.name.ToLower().Contains("bepinex")) { continue; };
+
+                // search functionality
+                if (!jMod.name.ToLower().StartsWith(searchQuery.ToLower())) { continue; };
 
                 ListViewItem kMod = Catalog_ModList.Items.Add(jMod.name);
                 kMod.SubItems.Add(jMod.author);
@@ -558,12 +561,12 @@ namespace MechanicMonke
 
         private void moddingDiscordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://gorillatagmodding.burrito.software/");
+            Process.Start("https://discord.gg/monkemod");
         }
 
         private void moddingGuideToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://discord.gg/monkemod");
+            Process.Start("https://gorillatagmodding.burrito.software");
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
