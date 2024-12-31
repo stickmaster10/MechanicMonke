@@ -1,4 +1,4 @@
-# MechanicMonke Beta
+# MechanicMonke Beta ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/binguszingus/MechanicMonke/total)
 This is a successor to [MonkeModManager](https://github.com/DeadlyKitten/MonkeModManager) that:
 - Remains fully compatable with all MMM mods (including MakeRelease.ps1)
 - Has it's own catalog and filtering system that includes the original MMM mod list
