@@ -4,8 +4,24 @@ This is a successor to [MonkeModManager](https://github.com/DeadlyKitten/MonkeMo
 - Has it's own catalog and filtering system that includes the original MMM mod list
 - Can detect what mods are installed based off of the filename or certain keywords in the naming scheme and update them accordingly
 
+## TOC
+- [Quick Links](#quick-links)
+- [I want my mod added/removed](#i-want-my-mod-added-removed)
+- [FAQ](#faq)
+
 ![image](https://github.com/user-attachments/assets/702b1b9b-06bc-4732-af40-6b2fac4f6c08)
 
-### Quick Links
+## Quick Links
 - Gorilla Tag Modding Group: https://discord.gg/monkemod
 - Mod Catalog (.json): https://github.com/binguszingus/MMDictionary
+
+## FAQ
+### I want my mod added / removed
+For additions, send a PR to [MMDictionary](https://github.com/binguszingus/MMDictionary), and most of the time, it'll get accepted.
+For removals, send a PR to [MMDictionary](https://github.com/binguszingus/MMDictionary), or DM me on Discord ``bingus.bingus.bingus`` and I'll remove it personally.
+
+### Why is there a ``setup.exe``?
+It is there for convenience. I am also providing a plain .exe build incase you may think it's sketchy.
+
+### Is this a rat?
+You can read the source at any time. No.
