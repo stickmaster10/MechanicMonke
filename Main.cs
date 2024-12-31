@@ -493,10 +493,14 @@ namespace MechanicMonke
             return client.DownloadData(url);
         }
 
-        public void Install(Mod release)
+        public int Install(Mod release, int doneSteps = 0, int TotalSteps = 0)
         {
+            int doneStepsLocal = doneSteps;
+
             SetStatusText(string.Format("Downloading... {0}", release.name));
             byte[] file = DownloadFile(release.download);
+            doneStepsLocal++;
+            MakePercentage(doneStepsLocal, TotalSteps);
             Console.WriteLine("downloaded..");
             SetStatusText(string.Format("Installing...{0}", release.name));
             Console.WriteLine("installing..");
@@ -516,13 +520,21 @@ namespace MechanicMonke
                 {
                     File.Delete(dllFile);
                 }
+                doneStepsLocal++;
+                MakePercentage(doneStepsLocal, TotalSteps);
             }
             else
             {
                 UnzipFile(file, installLocation);
+                doneStepsLocal++;
+                MakePercentage(doneStepsLocal, TotalSteps);
             }
 
             SetStatusText(string.Format("Installed {0}!", release.name));
+            doneStepsLocal++;
+            MakePercentage(doneStepsLocal, TotalSteps);
+
+            return doneStepsLocal;
         }
 
         public void InstallLocal(string filename)
@@ -554,9 +566,20 @@ namespace MechanicMonke
             SetStatusText(string.Format("Installed {0}!", fileName));
         }
 
+        private void MakePercentage(int i, int j)
+        {
+            if (j == 0) return;
+
+            int percentage = (i * 100) / j;
+            progressBar.Value = percentage;
+        }
+
         private void Installed_UpdModBtn_Click(object sender, EventArgs e)
         {
             List<ListViewItem> CheckedMods = Installed_ModList.CheckedItems.Cast<ListViewItem>().ToList();
+
+            int ProgressBarSteps = CheckedMods.Count * 3;
+            int CurrentSteps = 0;
 
             foreach (ListViewItem CheckedMod in CheckedMods)
             {
@@ -570,7 +593,7 @@ namespace MechanicMonke
 
                 try
                 {
-                    Install(SelectedMod);
+                    CurrentSteps = Install(SelectedMod, CurrentSteps, ProgressBarSteps);
                 }
                 catch (Exception _ex)
                 {

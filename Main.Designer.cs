@@ -75,6 +75,7 @@ namespace MechanicMonke
             this.columnHeaderMName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderAuthor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
             this.searchLabel = new System.Windows.Forms.Label();
             this.searchBoxText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -85,7 +86,7 @@ namespace MechanicMonke
             this.Catalog_ModList = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.button2 = new System.Windows.Forms.Button();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.statusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.pageControllers.SuspendLayout();
@@ -247,14 +248,14 @@ namespace MechanicMonke
             // installDirectoryToolStripMenuItem
             // 
             this.installDirectoryToolStripMenuItem.Name = "installDirectoryToolStripMenuItem";
-            this.installDirectoryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.installDirectoryToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.installDirectoryToolStripMenuItem.Text = "Install Directory";
             this.installDirectoryToolStripMenuItem.Click += new System.EventHandler(this.installDirectoryToolStripMenuItem_Click_1);
             // 
             // pluginsDirectoryToolStripMenuItem
             // 
             this.pluginsDirectoryToolStripMenuItem.Name = "pluginsDirectoryToolStripMenuItem";
-            this.pluginsDirectoryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pluginsDirectoryToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.pluginsDirectoryToolStripMenuItem.Text = "Plugins Directory";
             this.pluginsDirectoryToolStripMenuItem.Click += new System.EventHandler(this.pluginsDirectoryToolStripMenuItem_Click_1);
             // 
@@ -325,7 +326,7 @@ namespace MechanicMonke
             this.pageControllers.Location = new System.Drawing.Point(0, 22);
             this.pageControllers.Name = "pageControllers";
             this.pageControllers.SelectedIndex = 0;
-            this.pageControllers.Size = new System.Drawing.Size(789, 419);
+            this.pageControllers.Size = new System.Drawing.Size(789, 426);
             this.pageControllers.TabIndex = 2;
             // 
             // tabPage1
@@ -335,7 +336,7 @@ namespace MechanicMonke
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(781, 393);
+            this.tabPage1.Size = new System.Drawing.Size(781, 400);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Installed";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -343,7 +344,7 @@ namespace MechanicMonke
             // Installed_UpdModBtn
             // 
             this.Installed_UpdModBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Installed_UpdModBtn.Location = new System.Drawing.Point(8, 364);
+            this.Installed_UpdModBtn.Location = new System.Drawing.Point(8, 370);
             this.Installed_UpdModBtn.Name = "Installed_UpdModBtn";
             this.Installed_UpdModBtn.Size = new System.Drawing.Size(88, 23);
             this.Installed_UpdModBtn.TabIndex = 3;
@@ -379,7 +380,7 @@ namespace MechanicMonke
             this.Installed_ModList.HideSelection = false;
             this.Installed_ModList.Location = new System.Drawing.Point(8, 6);
             this.Installed_ModList.Name = "Installed_ModList";
-            this.Installed_ModList.Size = new System.Drawing.Size(765, 352);
+            this.Installed_ModList.Size = new System.Drawing.Size(765, 358);
             this.Installed_ModList.TabIndex = 1;
             this.Installed_ModList.UseCompatibleStateImageBehavior = false;
             this.Installed_ModList.View = System.Windows.Forms.View.Details;
@@ -401,6 +402,7 @@ namespace MechanicMonke
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.progressBar);
             this.tabPage2.Controls.Add(this.button2);
             this.tabPage2.Controls.Add(this.searchLabel);
             this.tabPage2.Controls.Add(this.searchBoxText);
@@ -414,10 +416,21 @@ namespace MechanicMonke
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tabPage2.Size = new System.Drawing.Size(781, 393);
+            this.tabPage2.Size = new System.Drawing.Size(781, 400);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Catalog";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button2.Location = new System.Drawing.Point(101, 371);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(127, 23);
+            this.button2.TabIndex = 11;
+            this.button2.Text = "View Repository";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // searchLabel
             // 
@@ -489,7 +502,7 @@ namespace MechanicMonke
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(9, 364);
+            this.button1.Location = new System.Drawing.Point(9, 371);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(86, 23);
             this.button1.TabIndex = 4;
@@ -524,7 +537,7 @@ namespace MechanicMonke
             this.Catalog_ModList.HideSelection = false;
             this.Catalog_ModList.Location = new System.Drawing.Point(9, 44);
             this.Catalog_ModList.Name = "Catalog_ModList";
-            this.Catalog_ModList.Size = new System.Drawing.Size(560, 314);
+            this.Catalog_ModList.Size = new System.Drawing.Size(560, 321);
             this.Catalog_ModList.TabIndex = 3;
             this.Catalog_ModList.UseCompatibleStateImageBehavior = false;
             this.Catalog_ModList.View = System.Windows.Forms.View.Details;
@@ -539,16 +552,14 @@ namespace MechanicMonke
             this.columnHeader3.Text = "Author";
             this.columnHeader3.Width = 257;
             // 
-            // button2
+            // progressBar
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(101, 364);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(127, 23);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "View Repository";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar.Location = new System.Drawing.Point(234, 371);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(335, 23);
+            this.progressBar.TabIndex = 12;
             // 
             // Main
             // 
@@ -625,6 +636,7 @@ namespace MechanicMonke
         private ToolStripSeparator toolStripSeparator3;
         private ToolStripMenuItem viewListstxtToolStripMenuItem;
         private Button button2;
+        private ProgressBar progressBar;
     }
 }
 
