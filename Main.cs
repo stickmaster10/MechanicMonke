@@ -381,34 +381,11 @@ namespace MechanicMonke
 
             LoadMMMMods();
 
-            foreach (Mod jMod in Mods)
-            {
-                // ignore privatized mods (which are only listed on mods.json so they can be recognized successfully)
-                if (jMod.repo == "EXC_PRIVATE") { continue; }
-
-                ListViewItem kMod = Catalog_ModList.Items.Add(jMod.name);
-                // kMod.SubItems.Add(jMod.name);
-                kMod.SubItems.Add(jMod.author);
-                // kMod.SubItems.Add(jMod.type);
-
-                if (jMod.type == "Mod")
-                {
-                    kMod.Group = Catalog_ModList.Groups[0];
-                } else if (jMod.type == "Library")
-                {
-                    kMod.Group = Catalog_ModList.Groups[1];
-                } else if (jMod.type == "MMM_Mod")
-                {
-                    kMod.Group = Catalog_ModList.Groups[2];
-                } else
-                {
-                    kMod.Group = Catalog_ModList.Groups[3];
-                }
-            }
+            RenderMods(true, true, false, ""); // trying to fix some strange bug
 
             Filter_Mods.Checked = true;
             Filter_Libraries.Checked = true;
-            Filter_MMM.Checked = true;
+            Filter_MMM.Checked = false;
 
             pageControllers.SelectedTab = tabPage1;
             pageControllers.Enabled = true;
