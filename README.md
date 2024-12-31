@@ -6,7 +6,7 @@ This is a successor to [MonkeModManager](https://github.com/DeadlyKitten/MonkeMo
 
 ## TOC
 - [Quick Links](#quick-links)
-- [I want my mod added/removed](#i-want-my-mod-added-removed)
+- [Build](#build)
 - [FAQ](#faq)
 
 ![image](https://github.com/user-attachments/assets/702b1b9b-06bc-4732-af40-6b2fac4f6c08)
@@ -14,6 +14,18 @@ This is a successor to [MonkeModManager](https://github.com/DeadlyKitten/MonkeMo
 ## Quick Links
 - Gorilla Tag Modding Group: https://discord.gg/monkemod
 - Mod Catalog (.json): https://github.com/binguszingus/MMDictionary
+
+## Build
+### MechanicMonke
+Get a release of VS2022 and ensure it has the .NET with C# package installed.
+From there, cd to your MechanicMonke source folder, and run:
+```
+dotnet build
+```
+
+### Installer
+Make sure you have Inno Setup installed.
+Open ``MechanicMonke.iss`` and compile it ``CTRL + F9``.
 
 ## FAQ
 ### I want my mod added / removed
