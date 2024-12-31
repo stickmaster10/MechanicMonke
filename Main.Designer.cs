@@ -336,7 +336,7 @@ namespace MechanicMonke
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(781, 400);
+            this.tabPage1.Size = new System.Drawing.Size(781, 394);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Installed";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -550,6 +550,7 @@ namespace MechanicMonke
             this.Catalog_ModList.TabIndex = 3;
             this.Catalog_ModList.UseCompatibleStateImageBehavior = false;
             this.Catalog_ModList.View = System.Windows.Forms.View.Details;
+            this.Catalog_ModList.SelectedIndexChanged += new System.EventHandler(this.Catalog_ModList_SelectedIndexChanged);
             // 
             // columnHeader2
             // 

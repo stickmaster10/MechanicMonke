@@ -785,6 +785,27 @@ namespace MechanicMonke
                 Process.Start("https://github.com/" + GetModFromName(mod.Text).repo);
             }
         }
+
+        private void Catalog_ModList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            /*
+             * description thing i tried to add
+            ListViewItem CurrentlySelected = Catalog_ModList.SelectedItems.Count > 0 ? Catalog_ModList.SelectedItems[0] : null;
+
+            if (CurrentlySelected == null)
+                return;
+
+            JSONNode API_Result = JSON.Parse(DownloadSite("https://api.github.com/repos/" + GetModFromName(CurrentlySelected.Text).repo));
+            JSONArray stuff = API_Result.AsArray;
+
+            if (stuff == null || stuff["description"] == "" || stuff["description"] == null)
+            {
+                modDescription.Text = "No description available.";
+            } else
+            {
+                modDescription.Text = stuff["description"];
+            }*/
+        }
     }
     public class Mod
     {
