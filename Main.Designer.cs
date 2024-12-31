@@ -50,10 +50,14 @@ namespace MechanicMonke
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.catalogsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dictionariesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.provideLocalDictionaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.addFromURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.catalogsListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.viewListstxtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewDictionarytxtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startGorillaTagexeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -185,39 +189,69 @@ namespace MechanicMonke
             // catalogsToolStripMenuItem
             // 
             this.catalogsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dictionariesToolStripMenuItem,
+            this.toolStripSeparator4,
             this.addFromURLToolStripMenuItem,
             this.catalogsListToolStripMenuItem,
             this.toolStripSeparator3,
-            this.viewListstxtToolStripMenuItem});
+            this.viewListstxtToolStripMenuItem,
+            this.viewDictionarytxtToolStripMenuItem});
             this.catalogsToolStripMenuItem.Name = "catalogsToolStripMenuItem";
             this.catalogsToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             this.catalogsToolStripMenuItem.Text = "Catalogs";
             // 
+            // dictionariesToolStripMenuItem
+            // 
+            this.dictionariesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.provideLocalDictionaryToolStripMenuItem});
+            this.dictionariesToolStripMenuItem.Name = "dictionariesToolStripMenuItem";
+            this.dictionariesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dictionariesToolStripMenuItem.Text = "Dictionaries";
+            // 
+            // provideLocalDictionaryToolStripMenuItem
+            // 
+            this.provideLocalDictionaryToolStripMenuItem.Name = "provideLocalDictionaryToolStripMenuItem";
+            this.provideLocalDictionaryToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.provideLocalDictionaryToolStripMenuItem.Text = "Provide Local Dictionary";
+            this.provideLocalDictionaryToolStripMenuItem.Click += new System.EventHandler(this.provideLocalDictionaryToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
+            // 
             // addFromURLToolStripMenuItem
             // 
             this.addFromURLToolStripMenuItem.Name = "addFromURLToolStripMenuItem";
-            this.addFromURLToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.addFromURLToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addFromURLToolStripMenuItem.Text = "Add";
             this.addFromURLToolStripMenuItem.Click += new System.EventHandler(this.addFromURLToolStripMenuItem_Click);
             // 
             // catalogsListToolStripMenuItem
             // 
             this.catalogsListToolStripMenuItem.Name = "catalogsListToolStripMenuItem";
-            this.catalogsListToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.catalogsListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.catalogsListToolStripMenuItem.Text = "Remove";
             this.catalogsListToolStripMenuItem.Click += new System.EventHandler(this.catalogsListToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(136, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
             // 
             // viewListstxtToolStripMenuItem
             // 
             this.viewListstxtToolStripMenuItem.Name = "viewListstxtToolStripMenuItem";
-            this.viewListstxtToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.viewListstxtToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.viewListstxtToolStripMenuItem.Text = "View lists.txt";
             this.viewListstxtToolStripMenuItem.Click += new System.EventHandler(this.viewListstxtToolStripMenuItem_Click);
+            // 
+            // viewDictionarytxtToolStripMenuItem
+            // 
+            this.viewDictionarytxtToolStripMenuItem.Name = "viewDictionarytxtToolStripMenuItem";
+            this.viewDictionarytxtToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.viewDictionarytxtToolStripMenuItem.Text = "View dictionary.txt";
+            this.viewDictionarytxtToolStripMenuItem.Click += new System.EventHandler(this.viewDictionarytxtToolStripMenuItem_Click);
             // 
             // runToolStripMenuItem
             // 
@@ -638,6 +672,10 @@ namespace MechanicMonke
         private ToolStripMenuItem viewListstxtToolStripMenuItem;
         private Button button2;
         private ProgressBar progressBar;
+        private ToolStripMenuItem dictionariesToolStripMenuItem;
+        private ToolStripMenuItem provideLocalDictionaryToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator4;
+        private ToolStripMenuItem viewDictionarytxtToolStripMenuItem;
     }
 }
 

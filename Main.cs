@@ -126,6 +126,7 @@ namespace MechanicMonke
         }
 
         List<Mod> Mods = new List<Mod>();
+        List<string> DictionarySources = new List<string>();
 
         public void SearchDirForMods(string dir)
         {
@@ -286,6 +287,23 @@ namespace MechanicMonke
                 File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\lists.txt", string.Join("\n", ModLists));
             }
 
+            try
+            {
+                List<string> DictionarySources2 = new List<string>(File.ReadAllLines(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\dictionary.txt"));
+
+                if (DictionarySources2 != null)
+                {
+                    DictionarySources = DictionarySources2;
+                }
+
+                pageControllers.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                // there is no mod list, ignore
+                Console.WriteLine(ex.Message);
+            }
+
             Mods = new List<Mod>(); // clear mod cache
 
             if (File.Exists(path + @"\Gorilla Tag.exe"))
@@ -302,7 +320,8 @@ namespace MechanicMonke
                     try
                     {
                         ModsJSON = JSON.Parse(DownloadSite(modList));
-                    } catch (Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         Console.WriteLine(ex.Message);
                         MessageBox.Show("There was an error parsing the JSON for a list. List: " + modList + "Exception: " + ex.Message, "JSON Parsing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -314,6 +333,34 @@ namespace MechanicMonke
                     {
                         JSONNode current = ModsList[i];
                         Mod release = new Mod(current["name"], current["author"], current["filenames"], current["keyword"], current["type"], current["repo"], current["download"]);
+                        SetStatusText("Updating definition for mod : " + release.name);
+
+                        Mods.Add(release);
+                    }
+                }
+
+                // load dictionaries
+                foreach (string diList in DictionarySources)
+                {
+                    // get mod dictionary
+                    JSONNode ModsJSON = null;
+
+                    try
+                    {
+                        ModsJSON = JSON.Parse(DownloadSite(diList));
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        MessageBox.Show("There was an error parsing the JSON for a list. List: " + diList + "Exception: " + ex.Message, "JSON Parsing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    var ModsList = ModsJSON.AsArray;
+
+                    for (int i = 0; i < ModsList.Count; i++)
+                    {
+                        JSONNode current = ModsList[i];
+                        Mod release = new Mod(current["name"], current["author"], current["filenames"], current["keyword"], "EXC_PRIVATE", "EXC_PRIVATE", "EXC_PRIVATE");
                         SetStatusText("Updating definition for mod : " + release.name);
 
                         Mods.Add(release);
@@ -495,6 +542,7 @@ namespace MechanicMonke
 
         public int Install(Mod release, int doneSteps = 0, int TotalSteps = 0)
         {
+            if (release.type == "EXC_PRIVATE") return 1;
             int doneStepsLocal = doneSteps;
 
             SetStatusText(string.Format("Downloading... {0}", release.name));
@@ -636,7 +684,8 @@ namespace MechanicMonke
 
                 try
                 {
-                    Install(SelectedMod);
+                    if (SelectedMod.type != "EXC_PRIVATE")
+                        Install(SelectedMod);
                 }
                 catch (Exception _ex)
                 {
@@ -805,6 +854,64 @@ namespace MechanicMonke
             {
                 modDescription.Text = stuff["description"];
             }*/
+        }
+
+        private void viewDictionarytxtToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\dictionary.txt", string.Join("\n", DictionarySources));
+            Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\dictionary.txt");
+        }
+
+        private void provideLocalDictionaryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string uri = StringPrompt.Prompt("Enter URL of .json dictionary you want to add to MechanicMonke.");
+
+            if (uri == "" || uri == null) return;
+
+            bool jsonErrors = false;
+
+            // get mod dictionary
+            JSONNode ModsJSON = null;
+
+            try
+            {
+                ModsJSON = JSON.Parse(DownloadSite(uri));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                MessageBox.Show("There was an error parsing the JSON for a list. List: ", "JSON Parsing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                jsonErrors = true;
+            }
+
+            var ModsList = ModsJSON.AsArray;
+
+            try
+            {
+                for (int i = 0; i < ModsList.Count; i++)
+                {
+                    JSONNode current = ModsList[i];
+                    Mod release = new Mod(current["name"], current["author"], current["filenames"], current["keyword"], "EXC_PRIVATE", "EXC_PRIVATE", "EXC_PRIVATE");
+                    SetStatusText("Updating definition for mod : " + release.name);
+
+                    Mods.Add(release);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                MessageBox.Show("The list you selected contains syntax errors.\n\nList creators: Please see the example JSON.\nList users: Please contact the admin for this list.", "JSON Parsing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                jsonErrors = true;
+            }
+
+            if (!jsonErrors)
+            {
+                DictionarySources.Add(uri);
+                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\dictionary.txt", string.Join("\n", ModLists));
+
+                SetStatusText("Reloading domain...");
+                LoadGorillaTagInstall(installLocation);
+            }
         }
     }
     public class Mod
