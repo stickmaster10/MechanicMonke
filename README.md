@@ -4,6 +4,8 @@ This is a successor to [MonkeModManager](https://github.com/DeadlyKitten/MonkeMo
 - Has it's own catalog and filtering system that includes the original MMM mod list
 - Can detect what mods are installed based off of the filename or certain keywords in the naming scheme and update them accordingly
 
+Join the discord: https://discord.gg/G4PwyDuHDE
+
 ## TOC
 - [Quick Links](#quick-links)
 - [Build](#build)
