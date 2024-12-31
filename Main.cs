@@ -269,7 +269,7 @@ namespace MechanicMonke
         {
             try
             {
-                List<string> ModListsSaved = new List<string>(File.ReadAllLines(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"\lists.txt"));
+                List<string> ModListsSaved = new List<string>(File.ReadAllLines(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\lists.txt"));
                 
                 if (ModListsSaved != null)
                 {
@@ -281,11 +281,9 @@ namespace MechanicMonke
             {
                 // there is no mod list, ignore
                 Console.WriteLine(ex.Message);
-            }
 
-            if (!ModLists.Contains("https://raw.githubusercontent.com/binguszingus/MMDictionary/master/mods.json"))
-            {
                 ModLists.Add("https://raw.githubusercontent.com/binguszingus/MMDictionary/master/mods.json");
+                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\lists.txt", string.Join("\n", ModLists));
             }
 
             Mods = new List<Mod>(); // clear mod cache
@@ -716,7 +714,10 @@ namespace MechanicMonke
             if (!jsonErrors)
             {
                 ModLists.Add(uri);
-                File.WriteAllText(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"\lists.txt", string.Join("\n", ModLists));
+                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\lists.txt", string.Join("\n", ModLists));
+
+                SetStatusText("Reloading domain...");
+                LoadGorillaTagInstall(installLocation);
             }
         }
 
@@ -729,7 +730,10 @@ namespace MechanicMonke
             if (ModLists.Contains(uri))
             {
                 ModLists.Remove(uri);
-                File.WriteAllText(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"\lists.txt", string.Join("\n", ModLists));
+                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\lists.txt", string.Join("\n", ModLists));
+
+                SetStatusText("Reloading domain...");
+                LoadGorillaTagInstall(installLocation);
             } else
             {
                 MessageBox.Show("The list you selected is not in your MechanicMonke list.", "List Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -738,7 +742,25 @@ namespace MechanicMonke
 
         private void viewListstxtToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"\lists.txt");
+            Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\lists.txt");
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            List<ListViewItem> CheckedMods = Catalog_ModList.CheckedItems.Cast<ListViewItem>().ToList();
+
+            if (CheckedMods.Count == 0) return;
+            if (CheckedMods.Count > 1)
+            {
+                DialogResult r = MessageBox.Show("Are you sure you want to open " + CheckedMods.Count + " website(s)?", "Opening Multiple Pages", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                
+                if (r == DialogResult.No) return;
+            }
+
+            foreach (ListViewItem mod in CheckedMods)
+            {
+                Process.Start("https://github.com/" + GetModFromName(mod.Text).repo);
+            }
         }
     }
     public class Mod

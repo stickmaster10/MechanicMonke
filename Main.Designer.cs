@@ -50,8 +50,10 @@ namespace MechanicMonke
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.catalogsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.catalogsListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addFromURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.catalogsListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.viewListstxtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startGorillaTagexeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,8 +85,7 @@ namespace MechanicMonke
             this.Catalog_ModList = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.viewListstxtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button2 = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.pageControllers.SuspendLayout();
@@ -148,7 +149,7 @@ namespace MechanicMonke
             this.installToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.filedllToolStripMenuItem});
             this.installToolStripMenuItem.Name = "installToolStripMenuItem";
-            this.installToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.installToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.installToolStripMenuItem.Text = "Install";
             // 
             // filedllToolStripMenuItem
@@ -163,20 +164,20 @@ namespace MechanicMonke
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(143, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
             this.quitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.quitToolStripMenuItem.Text = "Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
@@ -191,6 +192,13 @@ namespace MechanicMonke
             this.catalogsToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             this.catalogsToolStripMenuItem.Text = "Catalogs";
             // 
+            // addFromURLToolStripMenuItem
+            // 
+            this.addFromURLToolStripMenuItem.Name = "addFromURLToolStripMenuItem";
+            this.addFromURLToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addFromURLToolStripMenuItem.Text = "Add";
+            this.addFromURLToolStripMenuItem.Click += new System.EventHandler(this.addFromURLToolStripMenuItem_Click);
+            // 
             // catalogsListToolStripMenuItem
             // 
             this.catalogsListToolStripMenuItem.Name = "catalogsListToolStripMenuItem";
@@ -198,12 +206,17 @@ namespace MechanicMonke
             this.catalogsListToolStripMenuItem.Text = "Remove";
             this.catalogsListToolStripMenuItem.Click += new System.EventHandler(this.catalogsListToolStripMenuItem_Click);
             // 
-            // addFromURLToolStripMenuItem
+            // toolStripSeparator3
             // 
-            this.addFromURLToolStripMenuItem.Name = "addFromURLToolStripMenuItem";
-            this.addFromURLToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.addFromURLToolStripMenuItem.Text = "Add";
-            this.addFromURLToolStripMenuItem.Click += new System.EventHandler(this.addFromURLToolStripMenuItem_Click);
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            // 
+            // viewListstxtToolStripMenuItem
+            // 
+            this.viewListstxtToolStripMenuItem.Name = "viewListstxtToolStripMenuItem";
+            this.viewListstxtToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.viewListstxtToolStripMenuItem.Text = "View lists.txt";
+            this.viewListstxtToolStripMenuItem.Click += new System.EventHandler(this.viewListstxtToolStripMenuItem_Click);
             // 
             // runToolStripMenuItem
             // 
@@ -218,7 +231,7 @@ namespace MechanicMonke
             // startGorillaTagexeToolStripMenuItem
             // 
             this.startGorillaTagexeToolStripMenuItem.Name = "startGorillaTagexeToolStripMenuItem";
-            this.startGorillaTagexeToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.startGorillaTagexeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.startGorillaTagexeToolStripMenuItem.Text = "Start Gorilla Tag.exe";
             this.startGorillaTagexeToolStripMenuItem.Click += new System.EventHandler(this.startGorillaTagexeToolStripMenuItem_Click);
             // 
@@ -228,20 +241,20 @@ namespace MechanicMonke
             this.installDirectoryToolStripMenuItem,
             this.pluginsDirectoryToolStripMenuItem});
             this.goToolStripMenuItem.Name = "goToolStripMenuItem";
-            this.goToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.goToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.goToolStripMenuItem.Text = "Go";
             // 
             // installDirectoryToolStripMenuItem
             // 
             this.installDirectoryToolStripMenuItem.Name = "installDirectoryToolStripMenuItem";
-            this.installDirectoryToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.installDirectoryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.installDirectoryToolStripMenuItem.Text = "Install Directory";
             this.installDirectoryToolStripMenuItem.Click += new System.EventHandler(this.installDirectoryToolStripMenuItem_Click_1);
             // 
             // pluginsDirectoryToolStripMenuItem
             // 
             this.pluginsDirectoryToolStripMenuItem.Name = "pluginsDirectoryToolStripMenuItem";
-            this.pluginsDirectoryToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.pluginsDirectoryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.pluginsDirectoryToolStripMenuItem.Text = "Plugins Directory";
             this.pluginsDirectoryToolStripMenuItem.Click += new System.EventHandler(this.pluginsDirectoryToolStripMenuItem_Click_1);
             // 
@@ -250,7 +263,7 @@ namespace MechanicMonke
             this.preferencesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.makeThisMyDefaultGorillaTagToolStripMenuItem});
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.preferencesToolStripMenuItem.Text = "Preferences";
             // 
             // makeThisMyDefaultGorillaTagToolStripMenuItem
@@ -274,26 +287,26 @@ namespace MechanicMonke
             // moddingGuideToolStripMenuItem
             // 
             this.moddingGuideToolStripMenuItem.Name = "moddingGuideToolStripMenuItem";
-            this.moddingGuideToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.moddingGuideToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.moddingGuideToolStripMenuItem.Text = "Modding Guide";
             this.moddingGuideToolStripMenuItem.Click += new System.EventHandler(this.moddingGuideToolStripMenuItem_Click);
             // 
             // moddingDiscordToolStripMenuItem
             // 
             this.moddingDiscordToolStripMenuItem.Name = "moddingDiscordToolStripMenuItem";
-            this.moddingDiscordToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.moddingDiscordToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.moddingDiscordToolStripMenuItem.Text = "Modding Discord";
             this.moddingDiscordToolStripMenuItem.Click += new System.EventHandler(this.moddingDiscordToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(163, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -388,6 +401,7 @@ namespace MechanicMonke
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.button2);
             this.tabPage2.Controls.Add(this.searchLabel);
             this.tabPage2.Controls.Add(this.searchBoxText);
             this.tabPage2.Controls.Add(this.label1);
@@ -477,7 +491,7 @@ namespace MechanicMonke
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button1.Location = new System.Drawing.Point(9, 364);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(86, 23);
             this.button1.TabIndex = 4;
             this.button1.Text = "Install";
             this.button1.UseVisualStyleBackColor = true;
@@ -525,17 +539,16 @@ namespace MechanicMonke
             this.columnHeader3.Text = "Author";
             this.columnHeader3.Width = 257;
             // 
-            // toolStripSeparator3
+            // button2
             // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
-            // 
-            // viewListstxtToolStripMenuItem
-            // 
-            this.viewListstxtToolStripMenuItem.Name = "viewListstxtToolStripMenuItem";
-            this.viewListstxtToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.viewListstxtToolStripMenuItem.Text = "View lists.txt";
-            this.viewListstxtToolStripMenuItem.Click += new System.EventHandler(this.viewListstxtToolStripMenuItem_Click);
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button2.Location = new System.Drawing.Point(101, 364);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(127, 23);
+            this.button2.TabIndex = 11;
+            this.button2.Text = "View Repository";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Main
             // 
@@ -611,6 +624,7 @@ namespace MechanicMonke
         private ToolStripMenuItem catalogsListToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator3;
         private ToolStripMenuItem viewListstxtToolStripMenuItem;
+        private Button button2;
     }
 }
 
