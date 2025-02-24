@@ -1,4 +1,4 @@
-# MechanicMonke Beta ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/binguszingus/MechanicMonke/total)
+# MechanicMonke ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/stickmaster10/MechanicMonke/total)
 This is a successor to [MonkeModManager](https://github.com/DeadlyKitten/MonkeModManager) that:
 - Remains fully compatable with all MMM mods (including MakeRelease.ps1)
 - Has it's own catalog and filtering system that includes the original MMM mod list
@@ -15,7 +15,7 @@ Join the discord: https://discord.gg/G4PwyDuHDE
 
 ## Quick Links
 - Gorilla Tag Modding Group: https://discord.gg/monkemod
-- Mod Catalog (.json): https://github.com/binguszingus/MMDictionary
+- Mod Catalog (.json): https://github.com/stickmaster10/MMDictionary
 
 ## Build
 ### MechanicMonke
@@ -32,7 +32,7 @@ Open ``MechanicMonke.iss`` and compile it ``CTRL + F9``.
 ## FAQ
 ### I want my mod added / removed
 For additions, send a PR to [MMDictionary](https://github.com/binguszingus/MMDictionary), and most of the time, it'll get accepted.
-For removals, send a PR to [MMDictionary](https://github.com/binguszingus/MMDictionary), or DM me on Discord ``bingus.bingus.bingus`` and I'll remove it personally.
+For removals, send a PR to [MMDictionary](https://github.com/binguszingus/MMDictionary), or DM me on Discord ``stickmaster10`` and I'll remove it personally.
 
 ### Why is there a ``setup.exe``?
 It is there for convenience. I am also providing a plain .exe build incase you may think it's sketchy.
